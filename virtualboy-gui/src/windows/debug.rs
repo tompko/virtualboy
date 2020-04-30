@@ -176,4 +176,8 @@ impl VBWindow for DebugWindow {
     fn is_open(&self) -> bool {
         self.window.is_open()
     }
+
+    fn get_command(&mut self) -> Option<usize> {
+        None
+    }
 }

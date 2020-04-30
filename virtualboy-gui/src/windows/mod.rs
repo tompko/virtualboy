@@ -3,6 +3,7 @@ use wisegui::{Palette, Color};
 pub trait VBWindow {
     fn update(&mut self);
     fn is_open(&self) -> bool;
+    fn get_command(&mut self) -> Option<usize>;
 }
 
 struct VBPalette;
@@ -19,3 +20,4 @@ impl Palette for VBPalette {
 }
 
 pub mod debug;
+pub mod main;

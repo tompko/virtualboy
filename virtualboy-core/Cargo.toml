@@ -5,3 +5,4 @@ authors = ["tompko <tompko@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+encoding = "0.2.33"

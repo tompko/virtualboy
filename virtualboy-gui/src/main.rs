@@ -1,16 +1,40 @@
+extern crate clap;
 extern crate minifb;
+extern crate wfd;
 extern crate wisegui;
+extern crate virtualboy_core;
 
+mod argparse;
+mod emulator;
 mod windows;
 
-use windows::VBWindow;
-use windows::debug::DebugWindow;
+use emulator::Emulator;
+use virtualboy_core::rom::Rom;
+
+fn humanize(size: usize) -> String {
+    if size < 1024 {
+        format!("{}B", size)
+    } else if size < 1024*1024 {
+        format!("{}KiB", size / 1024)
+    } else {
+        format!("{}MiB", size / 1024 / 1024)
+    }
+}
 
 fn main() {
-    let mut window = DebugWindow::new();
+    let cmd_line_cfg = argparse::parse_args();
 
-    while window.is_open() {
-        window.update();
-    }
-    println!("Hello, world!");
+    println!("Loading log file {}", cmd_line_cfg.rom_path);
+
+    let rom = Rom::load(&cmd_line_cfg.rom_path).unwrap();
+
+    println!("ROM size: {}", humanize(rom.size()));
+    println!("Header info:");
+    println!(" name: \"{}\"", rom.name().unwrap());
+    println!(" maker code: \"{}\"", rom.maker_code());
+    println!(" game code: \"{}\"", rom.game_code());
+    println!(" game version: \"{}\"", rom.game_version());
+
+    let mut emulator = Emulator::new(rom);
+    emulator.run();
 }
