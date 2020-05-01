@@ -1,10 +1,14 @@
+#![allow(clippy::unreadable_literal)]
+
 extern crate clap;
+#[macro_use] extern crate nom;
 extern crate minifb;
 extern crate wfd;
 extern crate wisegui;
 extern crate virtualboy_core;
 
 mod argparse;
+mod command;
 mod emulator;
 mod windows;
 

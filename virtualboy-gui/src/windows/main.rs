@@ -1,5 +1,4 @@
 use minifb::{Menu, Scale, ScaleMode, Window, WindowOptions};
-use super::VBWindow;
 
 const VB_WIDTH: usize = 384;
 const VB_HEIGHT: usize = 224;
@@ -8,7 +7,7 @@ pub const MENU_FILE_OPEN: usize = 1;
 pub const MENU_FILE_EXIT: usize = 2;
 pub const MENU_VIEW_DEBUG: usize = 3;
 
-
+#[allow(dead_code)]
 pub struct MainWindow {
     window: Window,
 
@@ -39,16 +38,14 @@ impl MainWindow {
         window.add_menu(&file_menu);
         window.add_menu(&view_menu);
         MainWindow {
-            window: window,
+            window,
             width: VB_WIDTH,
             height: VB_HEIGHT,
             buffer: vec![0; VB_WIDTH * VB_HEIGHT],
         }
     }
-}
 
-impl VBWindow for MainWindow {
-    fn update(&mut self) {
+    pub fn update(&mut self) {
         if !self.window.is_open() {
             return;
         }
@@ -56,11 +53,11 @@ impl VBWindow for MainWindow {
         self.window.update();
     }
 
-    fn is_open(&self) -> bool {
+    pub fn is_open(&self) -> bool {
         self.window.is_open()
     }
 
-    fn get_command(&mut self) -> Option<usize> {
+    pub fn get_command(&mut self) -> Option<usize> {
         self.window.is_menu_pressed()
     }
 }

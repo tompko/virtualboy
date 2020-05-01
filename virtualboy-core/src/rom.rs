@@ -38,7 +38,7 @@ impl Rom {
         }
 
         Ok(Rom {
-            data: data,
+            data,
         })
     }
 
